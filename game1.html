@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		h3 {
+			margin-top: 20px;
+		}
+		.keyboard {
+			margin-top: 20px;
+			display: flex;
+			flex-wrap: wrap;
+			margin-left: -1px;
+			border-top: 1px solid #ccc;
+		}
+		.keyboard button {
+			border: none;
+			width: 33%;
+			line-height: 50px;
+			background: transparent;
+			border-left: 1px solid #ccc;
+			border-bottom: 1px solid #ccc;
+		}
+		.result_list {
+			margin-top: 20px;
+		}
+		.result_list li {
+			padding-left: 10px;
+			display: flex;
+		}
+		.result_list p {
+			padding-left: 15px;
+			position: relative;
+			margin-left: 10px;
+		}
+		.result_list p:before {
+			content: "";
+			position: absolute;
+			left: 0;
+			top: 50%;
+			transform: translateY(-50%);
+		}
+		.result_list p:nth-of-type(1)::before {
+			width: 10px;
+			height: 10px;
+			border: 1px solid #000;
+			border-radius: 100%;
+			background: #000;
+		}
+		.result_list p:nth-of-type(2)::before {
+			border-width: 0 6px 8px 6px;
+			border-style: solid;
+			border-color: transparent transparent #000 transparent;
+		}
+		.no_match {
+			position: relative;
+		}
+		.no_match:before,
+		.no_match:after {
+			content: "";
+			position: absolute;
+			top: 50%;
+			left: 0;
+			width: 10px;
+			height: 2px;
+			background: #000;
+		}
+		.result_list .no_match:before {
+			transform: translateY(-50%) rotate(-45deg);
+		}
+		.result_list .no_match:after {
+			transform: translateY(-50%) rotate(45deg);
+		}
+	</style>
+</head>
+<body>
+	<div class="app">
+		<h3>挑战一下你的推理能力<br>输入三个数字匹配隐藏的密码<br>看看你的智商要几轮</h3>
+		<div class="keyboard">
+			<button @click="onInputKey(item.value)" :disabled="item.disabled" v-for="(item, index) in keyboardData" :key="index">{{ item.value }}</button>
+		</div>
+		<div class="result_list">
+			<p>位置与数字全匹配</p>
+			<p>数字匹配，位置不匹配</p>
+		</div>
+		<ul class="result_list">
+			<li v-for="(item, index) in inputValueList" v-if="item.keys.length">
+				<div>{{ item.keys.join('，') }}</div>
+				<p v-for="(mItem, index) in item.matchResult">{{ mItem }}</p>
+			</li>
+		</ul>
+	</div>
+	<script>
+		new Vue({
+			el: '.app',
+			data() {
+				return {
+					answerKeys: [],
+					listIndex: 0,
+					inputValueList: [],
+					keyboardData: []
+				}
+			},
+			methods: {
+				onInputKey(key) {
+					this.keyboardData[key - 1]['disabled'] = true;
+					let currentKeys = this.inputValueList[this.listIndex] || {keys: [], matchResult: []};
+					currentKeys.keys.push(key);
+					this.inputValueList[this.listIndex] = currentKeys;
+					if (currentKeys.keys.length === 3) {
+						this.diff();
+						this.enableKeyboard();
+						this.listIndex ++;
+					}
+				},
+				enableKeyboard() {
+					this.keyboardData.forEach(item => {
+						item.disabled = false;
+					})
+				},
+				createAnswerKeys() {
+					return [...new Array(3)].reduce((result) => {
+						let key;
+						do {
+							key = Math.ceil(Math.random() * 9);
+						} while (result.includes(key))
+						result.push(key);
+						return result;
+					}, []);
+				},
+				diff() {
+					let current = this.inputValueList[this.listIndex];
+					let currentKeys = current.keys;
+					let matchNumber = 0;
+					let existNumber = 0;
+					currentKeys.forEach((item, index) => {
+						matchNumber += (item === this.answerKeys[index]) ? 1 : 0;
+						existNumber += this.answerKeys.indexOf(item) > -1;
+					})
+					current.matchResult = [ matchNumber, existNumber - matchNumber ];
+					this.inputValueList[this.listIndex] = current;
+				}
+			},
+			mounted() {
+				this.keyboardData = Array.from({length: 9}).map((item, index) => {return { value: index + 1, disabled: false} });
+				this.answerKeys = this.createAnswerKeys();
+			}
+		})
+	</script>
+</body>
+</html>
