@@ -1,0 +1,138 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+    <title>冠珠瓷砖、巨宁地板九峰专卖店</title>
+	<style type="text/css">
+		.amap-adcontent-body p {
+			margin: 0;
+			padding: 0;
+		}
+		dl, dd {
+			margin: 0;
+			padding: 0;
+		}
+        .info-title {
+            color: white;
+            font-size: 14px;
+            background-color:blue;
+            line-height: 26px;
+            padding: 0px 0 0 6px;
+            font-weight: lighter;
+            letter-spacing: 1px
+        }
+		.cover {
+			width: 100%;
+			overflow: hidden;
+		}
+		.cover img {
+			width: 100%;
+            vertical-align: top;
+		}
+        .info-content {
+            font: 14px Helvetica, 'Hiragino Sans GB', 'Microsoft Yahei', '微软雅黑', Arial;
+            padding: 4px;
+            color: #666666;
+        }
+        #container {
+            width: 100vw;
+            height: 100vh;
+        }
+        .custom_window {
+            max-width: 80vw;
+            margin: -25px -10px -12px;
+            padding-bottom: 6px;
+        }
+        .window_text {
+            margin: 6px 0 0;
+            line-height: 1.4;
+            text-align: left;
+            white-space: normal;
+        }
+        .window_tel {
+            display: flex;
+        }
+        .window_tel dd ~ dd {
+            margin-left: 20px;
+        }
+        .window_btns {
+            text-align: left;
+            margin-top: 10px;
+        }
+        .window_btns span ~ span {
+            margin-left: 20px;
+        }
+        .window_btns span {
+            line-height: 1.5715;
+            position: relative;
+            display: inline-block;
+            font-weight: 400;
+            white-space: nowrap;
+            text-align: center;
+            background-image: none;
+            border: 1px solid transparent;
+            box-shadow: 0 2px #00000004;
+            cursor: pointer;
+            transition: all .3s cubic-bezier(.645,.045,.355,1);
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            touch-action: manipulation;
+            height: 32px;
+            padding: 4px 15px;
+            font-size: 14px;
+            border-radius: 2px;
+            color: #000000d9;
+            border-color: #d9d9d9;
+            background: #fff;
+            height: auto;
+            padding: 4px 12px;
+            color: #0170fe;
+            font-size: 14px;
+            border-color: #0170fe;
+        }
+        .window_btns span:first-child {
+            color: #fff;
+            background: #0170fe;
+        }
+    </style>
+    <script src="https://map.qq.com/api/gljs?v=1.exp&key=LYNBZ-TLS3R-3D4WH-WYJG6-OGBIH-HXFUX"></script>
+</head>
+<body>
+<div id="container"></div>
+<script type="text/javascript">
+	var lnglat = new TMap.LatLng(30.504543,114.477112);
+    var map = new TMap.Map('container', {
+        center: lnglat,
+		zoom: 18
+    });
+    var openUrl = 'https://apis.map.qq.com/tools/poimarker?type=0&marker=coord:30.504543,114.477112;title:冠珠瓷砖、巨宁地板九峰专卖店;addr:光谷国际建材家居大市场东区E23、E24号门面&key=LYNBZ-TLS3R-3D4WH-WYJG6-OGBIH-HXFUX&referer=anxin';
+    var amapUrl = 'https://m.amap.com/navi/?start=&dest=114.477021,30.504478&destName=冠珠瓷砖、巨宁地板九峰专卖店&key=197237c1d4096cf8ee908cff0436d9c6';
+    var content='<div class="custom_window"><div class="info-title">冠珠瓷砖、巨宁地板九峰专卖店</div><div class="info-content">' +
+            '<div class="cover"><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h3ek5jlkn2j21hc0o0q8z.jpg"></div>' +
+            '<p class="window_text">冠珠瓷砖、巨宁地板，健康环保，经济实惠，欢迎前来咨询</p>'+
+            '<dl class="window_tel">'+
+			'<dd>张：<a href=\"tel:13419659897\">13419659897</a></dd>' +
+			'<dd>郑：<a href=\"tel:18271893500\">18271893500</a></dd></dl>'+
+            '<div class="window_btns">' + 
+                '<span onclick="openTxMap()">腾讯导航</span>' +
+                '<span onclick="openAmap()">高德导航</span>' +
+            '</div>'+
+            '</div>';
+    var infowindow=new TMap.InfoWindow({
+        content: content,
+        position:lnglat,//显示信息窗口的坐标
+        map:map  
+    });
+    function openTxMap () {
+        window.open(openUrl);
+    }
+    function openAmap () {
+        window.open(amapUrl)
+    }
+</script>
+</body>
+</html>
